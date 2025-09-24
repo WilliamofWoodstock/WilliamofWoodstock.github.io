@@ -19,13 +19,32 @@
       display: inline-block;
       font-size: 16px;
     }
+    #btn4 {
+      background-color: olive;
+    }
+
+    #btn8 {
+      background-color: DarkTurquoise;
+    }
 
     #btn10{
       background-color: #008CBA;
     }
     
+    #btn12 {
+      background-color: violet;
+    }
+
     #btn20{
       background-color: #f44336;
+    }
+
+    #btn100 {
+      background-color: Khaki;
+    }
+
+    #clear {
+      color: black;
     }
 
     button:hover {
@@ -36,14 +55,21 @@
 <body>
   <h1>Dice Roller!</h1>
   <div>
+    <button id="btn4">D4</button>
     <button id="btn6">D6</button>
+    <button id="btn8">D8</button>
     <button id="btn10">D10</button>
+    <button id="btn12">D12</button>
     <button id="btn20">D20</button>
+    <button id="btn100">D100</button>
+    <button id="clear" onclick="clearList()">Clear History</button>
   </div>
 
   <hr>
 
   <div>The roll is: <span id="numberSpan">???</span></div>
+  <div>Roll History: </div>
+  <ul id="nums"></ul>
   <script>
     // We are putting the <script> tag at the bottom to make sure that 
     // the HTML page has loaded before we start trying to hook up button events
@@ -51,23 +77,50 @@
     // The following code is loaded in once, when the HTML page first loads
     
     function showRandomInt(min, max) {
+      const list = document.getElementById("nums");
       min = Math.ceil(min);
       max = Math.floor(max);
       let number = Math.floor(Math.random() * (max - min + 1)) + min;
+      var member = document.createElement("li");
+      member.textContent = number;
+      list.insertBefore(member, list.firstChild);
       numberSpan.innerHTML = number;
+    }
+
+    function clearList() {
+      const list = document.getElementById("nums");
+      while(list.hasChildNodes()) {
+        list.removeChild(list.firstChild);
+      }
+    }
+
+    btn4.onclick = function() {
+      showRandomInt(1, 4);
     }
 
     btn6.onclick = function(){
       showRandomInt(1, 6);
     };
 
+    btn8.onclick = function() {
+      showRandomInt(1, 8);
+    }
+
     btn10.onclick = function(){
       showRandomInt(1, 10);
     };
 
+    btn12.onclick = function() {
+      showRandomInt(1, 12);
+    }
+
     btn20.onclick = function(){
       showRandomInt(1, 20);
     };
+
+    btn100.onclick = function() {
+      showRandomInt(1, 100);
+    }
   </script>
 </body>
 </html>
